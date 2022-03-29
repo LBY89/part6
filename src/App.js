@@ -10,7 +10,6 @@ const App = () => {
       <Filter />
       <AnecdoteList />
       <AnecdoteForm />
-      
     </div>
   )
 }

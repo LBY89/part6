@@ -1,4 +1,4 @@
-//import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const anecdotesAtStart = [
   'If it hurts, do it more often',
@@ -21,15 +21,12 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-const modificationReducer = (state = initialState, action) => {
-  console.log('modificationRestate', state)
-  
-  //console.log('modificationreducer', modificationReducer)
-  switch(action.type) {
-    case 'NEW_ANECDOTE':
-      return [...state, action.data]
-    case 'VOTE':
-      const id = action.data.id 
+const anecdoteSlice = createSlice({
+  name: 'anecdotes',
+  initialState,
+  reducers: {
+    vote:(state, action) => {
+      const id = action.payload 
       const anecdoteToChange = state.find(n => n.id === id)
       //console.log('anecdotetochange', anecdoteToChange)
       const changedAnecdote = {
@@ -39,32 +36,23 @@ const modificationReducer = (state = initialState, action) => {
       return state.map(anecdote => anecdote.id !== id ? anecdote: changedAnecdote).sort(function (a, b) {
             return (b.votes - a.votes)
         })
-// better to sort the array on the fly when manipulating than when alreay to render the array. As 
-// in Anecdotelist what I did before
-    default: 
-      return state
-  }   
-}
-
-export const vote = (id) => {
-
-  return {
-    type: 'VOTE',
-    data: { id }
-  }
-
-}
-
-export const createAnecdote = (content) => {
-  return {
-    type: 'NEW_ANECDOTE',
-    data: {
-      content,
-      id: getId(),
-      votes: 0
+    },
+    createAnecdote:(state, action) => {
+      const newAnecdote = {
+        content: action.payload,
+        id: getId(),
+        votes: 0
+      }
+      return [...state, newAnecdote]
+    },
+    filteredAnecdotes:(state, action) => {
+      return state.filter(n=> String(n.content).includes(action.payload))
     }
+  
   }
-}
+})
 
-export default modificationReducer
+export const { vote, createAnecdote, filteredAnecdotes } = anecdoteSlice.actions
+
+export default anecdoteSlice.reducer
 

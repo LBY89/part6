@@ -3,11 +3,6 @@ import { createSlice } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
 
 
-function Anec () {
-    const anecs = useSelector(state => state.anecdotes)
-    return anecs
-}
-
 const notificationSlice = createSlice({
     name: 'display',
     initialState: {
@@ -25,11 +20,8 @@ const notificationSlice = createSlice({
             state.content = null
         },
         showNewAncecdote: (state, action) => {
-            const content = action.payload
-            console.log('content from action', content)
-            console.log('statefrom display', state)
-            state.content = content
-            
+            state.content = action.payload
+        
         }
     }
 })

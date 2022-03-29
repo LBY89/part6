@@ -10,11 +10,9 @@ const Notification = () => {
 
 
   const anecdotes = useSelector(state => state.anecdotes)
-  //console.log('anecdotes', anecdotes)
+  
   const id = useSelector(state => state.display).content
-  console.log('id detail', id)
-  console.log('idparsefloat', typeof parseFloat(id))
-
+  
   if (id === null) {
     return (
       <div style={style}>
