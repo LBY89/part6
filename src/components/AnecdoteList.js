@@ -6,9 +6,9 @@ import Notification from '../components/Notification'
 
 const AnecdoteList = () => {
     const anecdotes = useSelector(state => state.anecdotes)
-    const sortedAnedotes = anecdotes.sort(function (a, b) {
-    return (b.votes - a.votes)
-    })
+    //const sortedAnedotes = anecdotes.sort(function (a, b) {
+    //     return (b.votes - a.votes)
+    // })
 
     const dispatch = useDispatch()
 // onClick can have multiple events 
@@ -16,7 +16,7 @@ const AnecdoteList = () => {
         <div>
             <h2>Anecdotes</h2>
             <Notification />
-            {sortedAnedotes.map(anecdote =>
+            {anecdotes.map(anecdote =>
                 <div key={anecdote.id}>
                 <div>
                     {anecdote.content}
@@ -26,7 +26,7 @@ const AnecdoteList = () => {
                     <button onClick={() =>{
                         dispatch(vote(anecdote.id)); 
                         dispatch(showVoted(anecdote.id)); 
-                        setTimeout(() => {dispatch(clearNotification())}, 3000)}}>
+                        setTimeout(() => {dispatch(clearNotification())}, 5000)}}>
                             vote
                     </button>
                 </div>

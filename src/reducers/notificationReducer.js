@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit'
 //import modificationReducer from './anecdoteReducer'
 import { useDispatch, useSelector } from 'react-redux'
 
-import produce from "immer"
 
 function Anec () {
     const anecs = useSelector(state => state.anecdotes)
@@ -12,21 +11,24 @@ function Anec () {
 const notificationSlice = createSlice({
     name: 'display',
     initialState: {
-        id: ''
+        content: null
     },
     reducers: {
         showVoted: (state, action) => {
             const id = action.payload
+            
             console.log('id detail', id)
-            state.id = id
+            state.content = id
+            console.log('statecontentfromshowvoted', state.content)
         },
         clearNotification: (state, action) => {
-            state.id = ''
+            state.content = null
         },
         showNewAncecdote: (state, action) => {
             const content = action.payload
             console.log('content from action', content)
-            state.id = content
+            console.log('statefrom display', state)
+            state.content = content
             
         }
     }
