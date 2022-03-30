@@ -9,9 +9,18 @@ const getAll = async () => {
 
 const getId = () => (100000 * Math.random()).toFixed(0)
 const createNew = async (content) => {
-    const object = { content: content, votes: 0, id: getId()}
+    const object = { content, votes: 0, id: getId()}
     const response = await axios.post(baseUrl, object)
     return response.data
 }
 
-export default  { getAll, createNew } 
+const update = async (id, newAnecdote) => {
+    // const anecdoteToChange = await axios.get(`${baseUrl}/${id}`)
+    // console.log('anecdotefrom service', anecdoteToChange)
+    // const updatedAnecdote = {...anecdoteToChange, votes: anecdoteToChange.votes + 1 }
+    // console.log('updatedanecdotefrom service', updatedAnecdote)
+    const response = await axios.put(`${baseUrl}/${id}`, newAnecdote)
+    return response.data
+}
+
+export default  { getAll, createNew, update } 

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 //import modificationReducer from './anecdoteReducer'
-import { useDispatch, useSelector } from 'react-redux'
+//import { useDispatch } from 'react-redux'
 
 
 const notificationSlice = createSlice({
@@ -10,10 +10,8 @@ const notificationSlice = createSlice({
     },
     reducers: {
         showVoted: (state, action) => {
-            const id = action.payload
             
-            console.log('id detail', id)
-            state.content = id
+            state.content = action.payload
             console.log('statecontentfromshowvoted', state.content)
         },
         clearNotification: (state, action) => {
@@ -26,6 +24,23 @@ const notificationSlice = createSlice({
     }
 })
 
+
+export const setNotification = (message, time_value) => {
+    
+    const content = message.slice(10,)
+    
+    return  dispatch => {
+        dispatch(showVoted(content))
+        setTimeout(() => {
+            dispatch(clearNotification())
+        }, time_value*1000);//dam some number games here.
+    }
+}
+
+
+
 export const { showVoted, clearNotification, showNewAncecdote } = notificationSlice.actions
 
 export default notificationSlice.reducer
+
+//dispatch(setNotification(`you voted '${anecdote.content}'`, 10))
