@@ -18,7 +18,7 @@ const Notification = () => {
   }
   return (
     <div style={style}>
-      voted or created '{notification}'' 
+      {notification}
     </div>
   )
 

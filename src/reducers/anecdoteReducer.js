@@ -53,7 +53,7 @@ export const increaseVote = (id, anecdote) => {
     dispatch(updateAnecdote(updatedAnecdote))
   }
 }
-
+//once installed redux-thunk, you can write like this, even tho dont see thunk all the time at all.
 export const { vote, filteredAnecdotes, appendAnecdote, setAnecdotes, updateAnecdote } = anecdoteSlice.actions
 export default anecdoteSlice.reducer
 // when import use {} for non-default export, and direct import for default import.

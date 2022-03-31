@@ -15,6 +15,6 @@ const store = configureStore({
 // anecdoteService.getAll().then(anecdotes =>
 //     store.dispatch(setAnecdotes(anecdotes))
 // )
-// console.log('storeState', store.getState())
+console.log('storeState', store.getState())
 
 export default store

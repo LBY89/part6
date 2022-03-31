@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 //import modificationReducer from './anecdoteReducer'
-//import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 
 const notificationSlice = createSlice({
@@ -24,23 +24,34 @@ const notificationSlice = createSlice({
     }
 })
 
+//const currentContent = useSelector(state => state.display)
+
+// const mapStateToProps = (state) => {
+//     return {
+//         display: state.display
+//     }
+// }
+let timeoutId;
 
 export const setNotification = (message, time_value) => {
     
-    const content = message.slice(10,)
-    
     return  dispatch => {
-        dispatch(showVoted(content))
-        setTimeout(() => {
+        dispatch(showVoted(message))
+
+        if (timeoutId) {
+            clearTimeout(timeoutId)
+        }
+        timeoutId = setTimeout(() => {
             dispatch(clearNotification())
         }, time_value*1000);//dam some number games here.
+        
     }
 }
 
 export const setAddedNotification = (message, time_value) => {
-    const content = message.slice(10,)
+    
     return  dispatch => {
-        dispatch(showNewAncecdote(content))
+        dispatch(showNewAncecdote(message))
         setTimeout(() => {
             dispatch(clearNotification())
         }, time_value*1000);//dam some number games here.

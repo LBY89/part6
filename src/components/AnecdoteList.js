@@ -1,22 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux'
+//import { useDispatch, useSelector } from 'react-redux'
 import { increaseVote } from '../reducers/anecdoteReducer'
 import { setNotification } from '../reducers/notificationReducer'
 import Notification from '../components/Notification'
+import { connect } from 'react-redux'
 
-
-const AnecdoteList = () => {
-    const anecdotes = useSelector(state => state.anecdotes)
-    //const sortedAnedotes = anecdotes.sort(function (a, b) {
-    //     return (b.votes - a.votes)
-    // })
-
-    const dispatch = useDispatch()
-// onClick can have multiple events 
+const AnecdoteList = (props) => {
+    
     return(
         <div>
             <h2>Anecdotes</h2>
             <Notification />
-            {anecdotes.map(anecdote =>
+            {props.anecdotes.map(anecdote =>
                 <div key={anecdote.id}>
                 <div>
                     {anecdote.content}
@@ -24,8 +18,8 @@ const AnecdoteList = () => {
                 <div>
                     has {anecdote.votes}
                     <button onClick={() =>{
-                        dispatch(increaseVote(anecdote.id, anecdote)); 
-                        dispatch(setNotification(`you voted '${anecdote.content}'`, 10))}}>
+                        props.increaseVote(anecdote.id, anecdote); 
+                        props.setNotification(`you voted '${anecdote.content}'`, 5)}}>
                             vote
                     </button>
                 </div>
@@ -35,5 +29,18 @@ const AnecdoteList = () => {
     )
 }
 
-export default AnecdoteList
+const mapDispatchToProps = {
+    increaseVote,
+    setNotification
+  }
+const mapStateToProps = (state) => {
+    return {
+        anecdotes: state.anecdotes
+    }
+  }
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AnecdoteList)
 
