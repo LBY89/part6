@@ -37,6 +37,15 @@ export const setNotification = (message, time_value) => {
     }
 }
 
+export const setAddedNotification = (message, time_value) => {
+    const content = message.slice(10,)
+    return  dispatch => {
+        dispatch(showNewAncecdote(content))
+        setTimeout(() => {
+            dispatch(clearNotification())
+        }, time_value*1000);//dam some number games here.
+    }
+}
 
 
 export const { showVoted, clearNotification, showNewAncecdote } = notificationSlice.actions
